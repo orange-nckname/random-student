@@ -1,0 +1,69 @@
+<html>
+<head>
+    <title>随机抽取学生</title>
+    <script src="random.js"></script>
+</head>
+<body>
+    <div id="container">
+        <a href="settings.html">设置</a>
+        <h1>抽取到的人是：</h1>
+        <p id="result"></p>
+        <button id="draw">再次抽取</button>
+        <p>请选择班级：</p>
+        <select id="class"> <!-- 添加下拉菜单 -->
+            <!-- 这里会动态生成选项 -->
+        </select>
+    </div>
+    <script>
+        // 从本地存储中获取所有班级名字
+        var classes = getClasses();
+        if (classes) {
+            classes = classes; // 保持原样
+        } else {
+            classes = []; // 如果没有设置任何班级，就用空数组
+        }
+
+        // 获取页面元素
+        var result = document.getElementById("result");
+        var draw = document.getElementById("draw");
+        var select = document.getElementById("class"); // 获取下拉菜单元素
+
+        // 定义一个函数，用来根据班级名字生成下拉菜单的选项
+        function createOptions(classNames) {
+            select.innerHTML = ""; // 清空原来的选项
+            for (var i = 0; i < classNames.length; i++) { // 遍历班级名字数组
+                var option = document.createElement("option"); // 创建一个选项元素
+                option.value = classNames[i]; // 设置选项的值为班级名字
+                option.text = classNames[i]; // 设置选项的文本为班级名字
+                select.appendChild(option); // 将选项添加到下拉菜单中
+            }
+        }
+
+        // 定义一个函数，用来根据班级名字获取人员名单，并随机抽取一个人员，并显示在页面上
+        function randomDrawByClass(className) {
+            var names = getNamesByClass(className); // 根据班级名字获取人员名单
+            if (names.length > 0) {
+                var index = Math.floor(Math.random() * names.length); // 随机生成一个索引
+                var name = names[index]; // 根据索引获取对应的人员名字
+                result.innerHTML = name; // 将名字显示在页面上
+            } else {
+                result.innerHTML = "没有可供抽取的人员，请先设置人员名单。"; // 如果没有人员名单，就提示用户
+            }
+        }
+
+        // 调用一次函数，初始化页面
+        createOptions(classes); // 根据班级名字生成下拉菜单的选项
+        randomDrawByClass(select.value); // 根据当前选择的班级抽取一个人员
+
+        // 给按钮添加点击事件，每次点击都重新抽取一个人员
+        draw.addEventListener("click", function() {
+            randomDrawByClass(select.value); // 根据当前选择的班级抽取一个人员
+        });
+
+        // 给下拉菜单添加事件监听器，当选择不同的班级时，重新抽取一个人员，并显示对应的人员名单
+        select.addEventListener("change", function() {
+            randomDrawByClass(select.value); // 根据当前选择的班级抽取一个人员
+        });
+    </script>
+</body>
+</html>
