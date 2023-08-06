@@ -64,9 +64,45 @@ button {
     height: 30px; /* 设置高度为30px*/
     margin-bottom: 10px; /* 设置下外边距为10px */
     margin-top: 10px;
+    border-radius: 100px;
+    border: none;
+    background-color:rgb(219, 219, 219)
 }
 
 /* 定义结果样式 */
 #result {
     font-size: 50px
+}
+
+/* 定义多行文本框样式 */
+textarea {
+    font-family: "Arial", sans-serif; /* 设置字体为Arial或无衬线字体 */
+    font-size: 16px;
+    width: 100%;
+}
+
+/* 定义选择班级样式 */
+#class {
+    font-family: "Arial", sans-serif; /* 设置字体为Arial或无衬线字体 */
+    font-size: 16px; /* 设置字体大小为16px */
+    color: #333333; /* 设置字体颜色为深灰色 */
+    margin-bottom: 10px; /* 设置下外边距为10px */
+}
+
+/* 定义再次抽取样式 */
+#draw {
+    font-family: "Arial", sans-serif; /* 设置字体为Arial或无衬线字体 */
+    font-size: 30px; /* 设置字体大小为16px */
+    color: #333333; /* 设置字体颜色为深灰色 */
+    width: 160px; /* 设置宽度为100% */
+    height: 50px; /* 设置高度为30px*/
+    margin-bottom: 10px; /* 设置下外边距为10px */
+    margin-top: 10px;
+    border-radius: 100px;
+    border: none;
+    background-color: #2195f3bb;
+    position: absolute;
+    top: 90vw;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
