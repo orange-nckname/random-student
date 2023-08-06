@@ -1,0 +1,45 @@
+/* 这是一个外部引用的css文件，用来定义网页的样式 */
+
+/* 定义全局样式 */
+* {
+    box-sizing: border-box; /* 设置盒模型为边框盒 */
+    margin: 0; /* 设置外边距为0 */
+    padding: 0; /* 设置内边距为0 */
+}
+
+/* 定义容器样式 */
+#container {
+    width: 80%; /* 设置宽度为80% */
+    max-width: 800px; /* 设置最大宽度为800px */
+    margin: 0 auto; /* 设置水平居中 */
+    padding: 20px; /* 设置内边距为20px */
+    background-color: white; /* 设置背景颜色为白色 */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 设置阴影效果 */
+}
+
+/* 定义标题样式 */
+h1 {
+    font-family: "Arial", sans-serif; /* 设置字体为Arial或无衬线字体 */
+    font-size: 32px; /* 设置字体大小为32px */
+    font-weight: bold; /* 设置字体粗细为粗体 */
+    color: #2196f3; /* 设置字体颜色为淡蓝色 */
+    text-align: center; /* 设置文本居中对齐 */
+    margin-bottom: 20px; /* 设置下外边距为20px */
+}
+
+/* 定义段落样式 */
+p {
+    font-family: "Arial", sans-serif; /* 设置字体为Arial或无衬线字体 */
+    font-size: 16px; /* 设置字体大小为16px */
+    color: #333333; /* 设置字体颜色为深灰色 */
+    margin-bottom: 10px; /* 设置下外边距为10px */
+}
+
+/* 定义输入框样式 */
+input {
+    font-family: "Arial", sans-serif; /* 设置字体为Arial或无衬线字体 */
+    font-size: 16px; /* 设置字体大小为16px */
+    color: #333333; /* 设置字体颜色为深灰色 */
+    width: 100%; /* 设置宽度为100% */
+    height: 30px; /* 设置高度为30px*/
+}
