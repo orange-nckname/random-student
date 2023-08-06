@@ -1,0 +1,120 @@
+<html>
+<head>
+    <title>人员设置</title>
+    <script src="random.js"></script>
+</head>
+<body>
+    <div id="container">
+        <h1>人员设置</h1>
+        <p>请选择班级：</p>
+        <select id="class"> <!-- 添加下拉菜单 -->
+            <!-- 这里会动态生成选项 -->
+        </select><br/>
+        <p>请输入新建或修改的班级名字：</p>
+        <input id="new-class" type="text" placeholder="请输入新建或修改的班级名字"> <!-- 添加输入框 -->
+        <button id="create">新建</button> <!-- 添加新建按钮 -->
+        <button id="remove">删除</button> <!-- 添加删除按钮 -->
+        <p>人员内容：</p>
+        <textarea id="names" rows="10" cols="40"></textarea><br/>
+        <button id="save">确定</button>
+    </div>
+    <script>
+        // 从本地存储中获取所有班级名字
+        var classes = getClasses();
+        if (classes) {
+            classes = classes; // 保持原样
+        } else {
+            classes = []; // 如果没有设置任何班级，就用空数组
+        }
+
+        // 获取页面元素
+        var names = document.getElementById("names");
+        var save = document.getElementById("save");
+        var select = document.getElementById("class"); // 获取下拉菜单元素
+        var input = document.getElementById("new-class"); // 获取输入框元素
+        var create = document.getElementById("create"); // 获取新建按钮元素
+        var remove = document.getElementById("remove"); // 获取删除按钮元素
+        var clear = document.getElementById("clear"); // 获取清空所有按钮元素
+
+         // 定义一个函数，用来根据班级名字生成下拉菜单的选项
+         function createOptions(classNames) {
+            select.innerHTML = ""; // 清空原来的选项
+            for (var i = 0; i < classNames.length; i++) { // 遍历班级名字数组
+                var option = document.createElement("option"); // 创建一个选项元素
+                option.value = classNames[i]; // 设置选项的值为班级名字
+                option.text = classNames[i]; // 设置选项的文本为班级名字
+                select.appendChild(option); // 将选项添加到下拉菜单中
+            }
+        }
+
+         // 定义一个函数，用来根据班级名字获取人员名单，并显示在文本框中
+         function showNamesByClass(className) {
+            var namesList = getNamesByClass(className); // 根据班级名字获取人员名单
+            if (namesList) {
+                names.value = namesList.join(" "); // 将人员名单数组用空格连接成字符串，并显示在文本框中
+            } else {
+                names.value = ""; // 如果没有人员名单，就清空文本框
+            }
+         }
+
+         // 调用一次函数，初始化页面
+         createOptions(classes); // 根据班级名字生成下拉菜单的选项
+         showNamesByClass(select.value); // 根据当前选择的班级显示人员名单
+
+         // 给按钮添加点击事件，将文本框中的内容保存到本地存储中，并返回到index.html页面
+         save.addEventListener("click", function() {
+             updateNamesByClass(select.value, names.value); // 根据当前选择的班级和文本框中的内容更新人员名单到本地存储中
+             window.location.href = "index.html"; // 跳转到index.html页面
+         });
+
+         // 给下拉菜单添加事件监听器，当选择不同的班级时，显示对应的人员名单，并将输入框中的内容清空
+         select.addEventListener("change", function() {
+             showNamesByClass(select.value); // 根据当前选择的班级显示人员名单
+             input.value = ""; // 清空输入框中的内容
+         });
+
+         // 给新建按钮添加点击事件，根据输入框中的内容新建一个班级，并跳转到index.html页面
+         create.addEventListener("click", function() {
+             var newClass = input.value; // 获取输入框中的内容
+             if (newClass) { // 如果输入框不为空
+                 removeEmptyClass(); // 先检查并删除名字为空的班级
+                 createClass(newClass); // 新建一个班级
+                 window.location.href = "index.html"; // 跳转到index.html页面
+             } else { // 如果输入框为空
+                 alert("请输入新建或修改的班级名字。"); // 弹出提示信息
+             }
+         });
+
+         // 给删除按钮添加点击事件，根据当前选择的班级删除一个班级，并跳转到index.html页面
+         remove.addEventListener("click", function() {
+             var oldClass = select.value; // 获取当前选择的班级
+             if (oldClass) { // 如果有选择的班级
+                 updateNamesByClass(select.value, names.value); // 先保存当前选择的班级和人员名单到本地存储中
+                 removeClass(oldClass); // 删除一个班级
+                 window.location.href = "index.html"; // 跳转到index.html页面
+             } else { // 如果没有选择的班级
+                 alert("请选择要删除的班级。"); // 弹出提示信息
+             }
+         });
+
+         // 给清空所有按钮添加点击事件，清空本地存储中的所有数据，并跳转到index.html页面
+         clear.addEventListener("click", function() {
+             clearStorage(); // 清空本地存储中的所有数据
+             window.location.href = "index.html"; // 跳转到index.html页面
+         });
+
+         // 给下拉菜单添加一个事件监听器，当页面加载时，如果下拉菜单中有名字为空的选项，就删除它，并选择第一个有效的选项
+         window.addEventListener("load", function() {
+             var options = select.options; // 获取下拉菜单中的所有选项
+             for (var i = 0; i < options.length; i++) { // 遍历所有选项
+                 if (options[i].value == "") { // 如果选项的值为空
+                     select.remove(i); // 删除该选项
+                     break; // 跳出循环
+                 }
+             }
+             select.selectedIndex = 0; // 选择第一个有效的选项
+             showNamesByClass(select.value); // 根据当前选择的班级显示人员名单
+         });
+    </script>
+</body>
+</html>
