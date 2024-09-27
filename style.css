@@ -102,7 +102,7 @@ textarea {
     border: none;
     background-color: #2195f3bb;
     position: absolute;
-    top: 95vw;
+    bottom: 25%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
