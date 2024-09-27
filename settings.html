@@ -1,22 +1,22 @@
 <html>
 <head>
-    <title>人员设置</title>
+    <title>内容设置</title>
     <script src="random.js"></script>
     <link rel="stylesheet" href="style.css"> <!-- 引用外部样式表 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
     <div id="container">
-        <h1>人员设置</h1>
-        <p>请选择班级：</p>
+        <h1>内容设置</h1>
+        <p>请选择组：</p>
         <select id="class"> <!-- 添加下拉菜单 -->
             <!-- 这里会动态生成选项 -->
         </select><br/>
-        <p>请输入新建或修改的班级名字：</p>
+        <p>请输入新建或修改的组名字：</p>
         <input id="new-class" type="text" placeholder="请输入新建或修改的班级名字"> <!-- 添加输入框 -->
         <button id="create">新建</button> <!-- 添加新建按钮 -->
         <button id="remove">删除</button> <!-- 添加删除按钮 -->
-        <p>人员内容：</p>
+        <p>随机内容：</p>
         <textarea id="names" rows="10" cols="40"></textarea><br/>
         <button id="save">确定</button>
     </div>
@@ -83,7 +83,7 @@
                  createClass(newClass); // 新建一个班级
                  window.location.href = "index.html"; // 跳转到index.html页面
              } else { // 如果输入框为空
-                 alert("请输入新建或修改的班级名字。"); // 弹出提示信息
+                 alert("请输入新建或修改的组名字。"); // 弹出提示信息
              }
          });
 
@@ -95,7 +95,7 @@
                  removeClass(oldClass); // 删除一个班级
                  window.location.href = "index.html"; // 跳转到index.html页面
              } else { // 如果没有选择的班级
-                 alert("请选择要删除的班级。"); // 弹出提示信息
+                 alert("请选择要删除的组。"); // 弹出提示信息
              }
          });
 
